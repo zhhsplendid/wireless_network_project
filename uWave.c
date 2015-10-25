@@ -112,7 +112,7 @@ int quantizeAcc(int** acc_data, int length) {
 					temp[i][l] = 10 + (temp[i][l]-10)/10*5;
 			} else if( temp[i][l] < -10) {
 				if( temp[i][l] < -20)
-					temp[i][l] == -16;
+					temp[i][l] = -16;
 				else
 					temp[i][l] = -10 + (temp[i][l] + 10)/10*5;
 			}

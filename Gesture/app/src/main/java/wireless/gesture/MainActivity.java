@@ -26,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
     protected TextView resultOutputId;
 
     protected SensorManager sensorManager;
+    protected Sensor accelerateSensor;
+
+    protected double gravity[] = new double[3];
+    protected double linear_acceleration[] = new double[3];
+
+    final double alpha = 0.8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,29 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accelerateSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
+
+
+    public void onSensorChanged(SensorEvent event) {
+        /*
+        gravity[0] = alpha * gravity[0] + (1 - alpha) * event.values[0];
+        gravity[1] = alpha * gravity[1] + (1 - alpha) * event.values[1];
+        gravity[2] = alpha * gravity[2] + (1 - alpha) * event.values[2];
+
+        linear_acceleration[0] = event.values[0] - gravity[0];
+        linear_acceleration[1] = event.values[1] - gravity[1];
+        linear_acceleration[2] = event.values[2] - gravity[2];
+        */
+        linear_acceleration[0] = event.values[0] / DTWLib.EARTH_GRAVITY;
+        linear_acceleration[1] = event.values[1] / DTWLib.EARTH_GRAVITY;
+        linear_acceleration[2] = (event.values[2] - 1) / DTWLib.EARTH_GRAVITY;
+        //TODO
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
