@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="x = "
+        android:text="@string/view_x"
         android:id="@+id/xAcceleration"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="y = "
+        android:text="@string/view_y"
         android:id="@+id/yAcceleration"
         android:layout_alignTop="@+id/xAcceleration"
         android:layout_centerHorizontal="true" />
@@ -32,18 +32,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="z = "
+        android:text="@string/view_z"
         android:id="@+id/zAcceleration"
-        android:layout_alignTop="@+id/yAcceleration"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/detectButton"
+        android:layout_alignEnd="@+id/detectButton" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Result = "
+        android:text="@string/view_result"
         android:id="@+id/textResult"
         android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_record"
+        android:id="@+id/recordButton"
+        android:layout_marginTop="54dp"
+        android:layout_below="@+id/xAcceleration"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_detect"
+        android:id="@+id/detectButton"
+        android:layout_alignBottom="@+id/recordButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_end"
+        android:id="@+id/endButton"
+        android:layout_above="@+id/textResult"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

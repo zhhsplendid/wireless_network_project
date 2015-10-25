@@ -28,9 +28,9 @@ public class DTWLib {
     public static final double EARTH_GRAVITY = 9.8;
     public static int NUM_TEMPLATES = 20;
 
+    public static final int DIMENSION = 3;
     final int QUAN_WIN_SIZE = 8;
     final int QUAN_MOV_STEP = 4;
-    final int DIMENSION = 3;
     final int MAX_ACC_LEN = 500;
 
     public double accBuffer[][];
@@ -51,14 +51,17 @@ public class DTWLib {
     }
 
     public void addAccerelation(double acce[]) {
-        for(int i = 0; i < DIMENSION; ++i) {
-            accBuffer[accIndex][i] = acce[i];
+        //We ignore too many accerelations.
+        if(accIndex < MAX_ACC_LEN) {
+            for (int i = 0; i < DIMENSION; ++i) {
+                accBuffer[accIndex][i] = acce[i];
+            }
+            ++accIndex;
         }
-        ++accIndex;
     }
 
     public int endGesture() {
-        int ret = 0;
+        int ret = -1;
         if(recordFlag) {
             writeFile(accBuffer, accIndex, tempIndex);
             ++tempIndex;

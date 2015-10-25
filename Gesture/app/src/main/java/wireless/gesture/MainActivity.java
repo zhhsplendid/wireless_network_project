@@ -13,6 +13,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,13 +24,20 @@ public class MainActivity extends AppCompatActivity {
 
     // For first version, I just use number as output, finally  we will use pictures and add actions
     // of those recognized gestures.
-    protected TextView resultOutputId;
+    protected TextView textResult;
 
     protected SensorManager sensorManager;
     protected Sensor accelerateSensor;
+    protected DTWLib dtwLib;
 
-    protected double gravity[] = new double[3];
-    protected double linear_acceleration[] = new double[3];
+    final int DIMENSION = DTWLib.DIMENSION;
+    protected double gravity[] = new double[DIMENSION];
+    protected double linear_acceleration[] = new double[DIMENSION];
+    protected boolean recording = false;
+    protected boolean detecting = false;
+    Button recordButton;
+    Button detectButton;
+    Button endButton;
 
     final double alpha = 0.8;
 
@@ -51,6 +59,54 @@ public class MainActivity extends AppCompatActivity {
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerateSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        dtwLib = new DTWLib();
+
+
+        xAcceleration = (TextView) findViewById(R.id.xAcceleration);
+        yAcceleration = (TextView) findViewById(R.id.yAcceleration);
+        zAcceleration = (TextView) findViewById(R.id.zAcceleration);
+        textResult = (TextView) findViewById(R.id.textResult);
+
+        recordButton = (Button) findViewById(R.id.recordButton);
+        recordButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                textResult.setText("Recording");
+                if(!detecting && !recording) {
+                    recording = true;
+                    dtwLib.recordMode();
+                    dtwLib.beginGesture();
+                }
+            }
+        });
+
+        detectButton = (Button) findViewById(R.id.detectButton);
+        detectButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                if(!recording && !detecting) {
+                    detecting = true;
+                    textResult.setText("Detecting");
+                    dtwLib.detectMode();
+                    dtwLib.beginGesture();
+                }
+            }
+        });
+
+        endButton = (Button) findViewById(R.id.endButton);
+        endButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                if(recording) {
+                    recording = false;
+                    dtwLib.endGesture();
+                    textResult.setText("record over");
+                }
+                if(detecting) {
+                    detecting = false;
+                    int intResult = dtwLib.endGesture();
+                    textResult.setText("result = " + Integer.toString(intResult));
+                }
+            }
+        });
+
     }
 
 
@@ -64,11 +120,15 @@ public class MainActivity extends AppCompatActivity {
         linear_acceleration[1] = event.values[1] - gravity[1];
         linear_acceleration[2] = event.values[2] - gravity[2];
         */
-        linear_acceleration[0] = event.values[0] / DTWLib.EARTH_GRAVITY;
-        linear_acceleration[1] = event.values[1] / DTWLib.EARTH_GRAVITY;
-        linear_acceleration[2] = (event.values[2] - 1) / DTWLib.EARTH_GRAVITY;
-        //TODO
-
+        if(recording || detecting) {
+            linear_acceleration[0] = event.values[0] / DTWLib.EARTH_GRAVITY;
+            linear_acceleration[1] = event.values[1] / DTWLib.EARTH_GRAVITY;
+            linear_acceleration[2] = (event.values[2] - 1) / DTWLib.EARTH_GRAVITY;
+            xAcceleration.setText("x = " + Double.toString(linear_acceleration[0]));
+            yAcceleration.setText("y = " + Double.toString(linear_acceleration[1]));
+            zAcceleration.setText("z = " + Double.toString(linear_acceleration[2]));
+            dtwLib.addAccerelation(linear_acceleration);
+        }
     }
 
 

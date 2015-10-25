@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Gesture</string>
     <string name="action_settings">Settings</string>
+    <string name="view_x">x = </string>
+    <string name="view_y">y = </string>
+    <string name="view_z">z = </string>
+    <string name="view_result">result = </string>
+    <string name="button_end">end</string>
+    <string name="button_record">record</string>
+    <string name="button_detect">detect</string>
 </resources>
