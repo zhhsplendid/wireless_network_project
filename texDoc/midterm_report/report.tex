@@ -19,7 +19,7 @@
 
 \begin{document}
 
-\title{Gesture Recognition via 3D Accelerometer}
+\title{GRACE: Gesture Recognition via 3D Accelerometer}
 
 
 %
@@ -71,66 +71,78 @@ Huihuang Zheng\\
 \alignauthor
 Yiming Pang\\
        \affaddr{University of Texas at Austin}\\
-       \email{TODO}
+       \email{ypang@cs.utexas.edu}
 }
 
 
 \maketitle
 \begin{abstract}
-//TODO add this.
+The rapid growth of various sensors on smartphones provides us with new opportunities to leverage the abundant sensor data on mobile phones to diversify user interaction based on gestures. In this report, we present GRACE: \underline{G}esture \underline{R}ecognition vi\underline{A} 3D a\underline{C}c\underline{E}lerometer. We build GRACE mainly based on the previous work of uWave~\cite{liu2009uwave}. Despite the method of dynamic time warping (DTW) used by uWave, we try to improve the performance of GRACE in the presence of fuzzy gestures by involving support vector machine (SVM). What is more, we also implement GRACE on Android phone, which can be furtherly developed to a mobile application for multiple use.
 \end{abstract}
 
 
-\category{Wireless Network}{Research Project}[report]
+\category{Wireless Network}{Research Project}[Report]
 
 \terms{Algorithm, Application}
 
-\keywords{Gesture, Accelerometer, Dynamic Time Warping(DTW)} % NOT required for Proceedings
+\keywords{Gesture Recognition, Accelerometer, Machine Learning} % NOT required for Proceedings
 
 \section{Introduction}
-Gesture-based interactions are now widely used in mobile phone and laptop, which requires gesture pattern recognition. There are several methods to recognize gestures, for example, XBOX can recognize by vision approaching. Some researchers used wearable sensors like "glove" to detect motion of hands. But those works cost computing resource, power and hardware a lot. We focused on light-weight gesture recognition system: just use simple 3D accelerometer, which is common in your mobile phone.
+\label{introduction}
+Gesture-based interactions are now widely adopted in all kinds of devices such as mobile phones, laptops and GamePads. In general, gesture-based interaction usually requires pattern recognition. Several approaches have been proposed for gesture recognition. For example, Xbox can recognize human gestures by a vision-based approach. Another category of gesture recognition is mainly based on wearable devices such as ``smart gloves'' which can detect the motion of hands. However, these approaches usually have a high requirement against computational capability and power control, which reduces the availability in daily life. In our project, we mainly focus on implementing a light-weighted gesture recognition system, which only exploits the data of 3D accelerometer, which is commonly equipped on mobile phones.
 
-Our project is mainly based on previous work uWave\cite{liu2009uwave}: A state of art gesture recognition method. It just uses templates of gesture. When it tries to detect gesture, it records gesture and uses Dynamic time warping(DTW) to compute time series Euclidean distance between gesture and templates. Then it outputs the template which matches best as recognition result. So it doesn't need a lot of computation or training compared to statistical methods.
+Our system GRACE is mainly built based on previous work uWave~\cite{liu2009uwave}: which is an accelerometer-based personalized gesture recognition system. uWave requires a large gesture library acting as the template. When uWave is initiated and a gesture is detected, it quantizes the acceleration data and uses DTW to compute time series Euclidean distances between the detected gesture data and predefined templates. Finally it outputs the exact template which matches the best as the recognition result. Therefore, uWave is a light-weighted system since it doesn't require high computational power or heavy training compared to the statistical methods.
 
-What we have done are 1, Building the uWave on a Android mobile phone and run some experiments. 2, via experiment we got some shortcomings of uWave and we believe we could improve it. Our goal of this project is improving performance of gesture recognition and building an application based on gesture recognition. So we researched in advantages and disadvantages of uWave and then we make plan of our work.
+In our project, we try to migrate the gesture recognition system from Wii remote to Android phone which is more widely available. We have already built the baseline of the system on an Android phone and did some experiments. On the other hand, through the experiment results, we noticed some shortcomings of uWave in the presence of fuzzy gestures and we are trying to improve the performance of the system by adopting other machine learning related methods. Our ultimate goal is to improve the performance of our gesture recognition system and build a multifunctional application on an Android phone.
 
-Our report is organized as following: section 2 discussed the work of uWave. section 3 will show project and experiments we have done. We will show some shortcomings and what we can improve in the section. Section 4 shows our future plan, what we will add in our research project.
+The remainder of this report is organized as follows: In Section~\ref{uWave}, we discuss the work of uWave. In Section~\ref{progress} we introduce the current progress of our project followed by the future plan discussed in Section~\ref{futureplan}. Finally, we conclude our work in Section~\ref{conclusion}.
 
 \section{uWave}
-TODO write these or copy from paper\\
-For recognition, uWave leverages a template library that stores one or more time series of known identities for every vocabulary gesture, often input by the user. Figure \ref{uWaveBasic} illustrates the recognition process. The input to uWave is a time series of
-acceleration provided by a three-axis accelerometer. Each time sample is a vector of three elements, corresponding to the acceleration along the three axes. uWave first quantizes acceleration data into a time series of discrete values. The same quantization applies to the templates too. It then employs DTW to match the input time series against the templates of the gesture vocabulary. It recognizes the gesture as the template that provides the best matching. The recognition results,
-confirmed by the user as correct or incorrect, can be used to adapt the existing templates to accommodate gesture variations over time.
+\label{uWave}
+uWave mainly leverages a \textit{template library} which stores many time series of known identities for every vocabulary gesture. The basic idea of uWave is shown in Figure~\ref{uWaveBasic}.
 \begin{figure}
+  \centering
   \includegraphics[width=0.8\linewidth]{uWave_basic.JPG}
   \caption{Basic idea of uWave}
   \label{uWaveBasic}
 \end{figure}
 
+When uWave is active, it takes continuous acceleration as input to a quantization module to convert the accelerometer reading into discrete values thus reduces floating point computation. The quantized data is presented as a vector of three elements, corresponding to the acceleration along the three axes. Then it will match the quantized data with data in a template library using DTW, note that the data in template library is also quantized. It then recognizes the gesture as the template that minimizes the Euclidean distance, i.e. matches the best. After the matching, the recognition result can be further used to adapt the existing templates to accommodate gesture variations over the time.
 
-\section{Project and Experiments We Have Done}
-We implemented uWave on Android mobile phone and did some experiments about the recognition accuracy:  
+\section{Current Progress}
+\label{progress}
+We implemented the prototype of GRACE on Android phone based on the core of uWave. uWave is implemented in C and we transfer it to Java and encapsulate as an Android application. The current user interface is shown in Figure~\ref{GRACEui}.  
+\begin{figure}
+  \centering
+  \includegraphics[scale = 0.3]{ui.png}
+  \caption{Current User Interface}
+  \label{GRACEui}
+\end{figure} 
 
+So far we can record the data of the accelerometer equipped on the phone and display the data along the three axes. By matching the it with existing data in the template library we can show the result of the matching gesture.
+
+Moreover, we did some simple experiments and the results showed that the performance of GRACE is satisfying in simple settings.
 
 \section{Future Plan}
-We plan to do two aspects in the future, one is improving performance by SVM approaching. Another is implementing an application to use gesture recognition.
+\label{futureplan}
+We plan to improve GRACE in two ways: algorithm and application, which will be presented separately.  
 \subsection{SVM based method}
-We could see from above section, the accuracy will decrease with number of gestures grows. It can be improved. This is because of shortcoming of uWave: we call it confusing gesture. With number of gestures grows, some gestures may be similar. Using template and distance approaching may not be suitable. For example in figure \ref{SVMuWave}: the triangles and rectangles represent two kind of gesture data. We see two gestures are somehow similar. If we choose red triangle and red rectangle as templates, it will result in wrong classification. In this case, SVM will produce more correct division. Also, SVM can also produce classification when just use templates and find division between templates. So we think this will be better. We will try improving gesture recognition based on SVM method or some machine learning related technics.
-\begin{figure}
+For the core algorithm, we intend to employ SVM to improve the accuracy of gesture recognition. In the paper of uWave, we can easily find that the accuracy of recognition will decrease with number of gestures grows. It reveals the shortcoming of uWave in the presence of fuzzy gestures. With more gestures added into the template library, some gestures can be similar to each other. In such a scenario, using distance as the metric can be highly unreliable. We can illustrate the result in Figure~\ref{SVMuWave}. Triangles and rectangles represent the feature data of two types of gestures. We can see that these two gestures are somehow similar. If we choose the red triangle and the red rectangle as templates, it will result in wrong classification. In such a scenario case, SVM can improve the accuracy of classification. Moreover, SVM can be used to ``bootstrap'' the system by classifying the templates. Therefore, involving SVM method in our system can improve the performance of the system in multiple ways.\begin{figure}
+  \centering
   \includegraphics[width=0.8\linewidth]{SVM_better_than_uWave.JPG}
   \caption{SVM is better than uWave when we have similar gestures}
   \label{SVMuWave}
 \end{figure} 
 \subsection{Gesture control application}
-Since now we have built the uWave on Android mobile phone. The application can input gesture library templates and recognize input gesture. We plan to build an application using gesture recognition. This phone application sends signals to blue tooth adapter connected to computer and let our application control the computer in the air! We plan to have following gestures:
+Besides improving the core algorithm, we also want to make GRACE a useful application in gesture recognition. Since we have already built GRACE on Android mobile phone, we can easily leverage the mobile phone to develop cool applications. The application takes different gesture as input, then recognizes the gesture based on the designed algorithm. After that, the phone can execute some specific command. Our current plan is to send signals through bluetooth to a laptop and control the laptop with the phone in the air. We plan to implement the following functions:
 \begin{enumerate}
-  \item Control slide show: previous and next slide 
-  \item Can write some English letters and numbers in air and recognize them. 
+  \item Control the slides with the phone: show the previous or next slide 
+  \item Write directly on the slides with the phone: use the phone to write numbers (or English letters which is more challenging) and show the printed version of the writing on the slides.
 \end{enumerate}
-We can show these cool work in course presentation.
 
 \section{Conclusion}
-TODO add this
+\label{conclusion}
+In this report, we briefly introduced the work of uWave, which is an implementation of accelerometer-based personalized gesture recognition. We also present our prototype design of GRACE along with some future plans to improve the current design. We conducted several simple experiments over GRACE and showed the feasibility of GRACE in simple settings. However, the performance of GRACE in a more complicated setting is still unclear and a lot of improvements are required.
 
 
 %
