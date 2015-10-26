@@ -1,0 +1,30 @@
+\begin{thebibliography}{1}
+
+\bibitem{akl2010accelerometer}
+A.~Akl and S.~Valaee.
+\newblock Accelerometer-based gesture recognition via dynamic-time warping,
+  affinity propagation, \& compressive sensing.
+\newblock In {\em Acoustics Speech and Signal Processing (ICASSP), 2010 IEEE
+  International Conference on}, pages 2270--2273. IEEE, 2010.
+
+\bibitem{liu2009uwave}
+J.~Liu, L.~Zhong, J.~Wickramasuriya, and V.~Vasudevan.
+\newblock uwave: Accelerometer-based personalized gesture recognition and its
+  applications.
+\newblock {\em Pervasive and Mobile Computing}, 5(6):657--675, 2009.
+
+\bibitem{wu2009gesture}
+J.~Wu, G.~Pan, D.~Zhang, G.~Qi, and S.~Li.
+\newblock Gesture recognition with a 3-d accelerometer.
+\newblock In {\em Ubiquitous intelligence and computing}, pages 25--38.
+  Springer, 2009.
+
+\bibitem{zhong2009user}
+J.~L.~L. Zhong, J.~Wickramasuriya, and V.~Vasudevan.
+\newblock User evaluation of lightweight user authentication with a single
+  tri-axis accelerometer.
+\newblock In {\em Proceedings of the 11th International Conference on
+  Human-Computer Interaction with Mobile Devices and Services}, page~15.
+  Citeseer, 2009.
+
+\end{thebibliography}

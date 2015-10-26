@@ -1,0 +1,124 @@
+
+% ---------------------------------------------------------------------------------------------------------------
+% It is an example which *does* use the .bib file (from which the .bbl file
+% is produced).
+% REMEMBER HOWEVER: After having produced the .bbl file,
+% and prior to final submission,
+% you need to 'insert'  your .bbl file into your source .tex file so as to provide
+% ONE 'self-contained' source file.
+
+
+\documentclass{acm_proc_article-sp}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+%\usepackage{amsmath}
+
+\newtheorem{theorem}{Theorem}
+\newdef{definition}{Definition}
+
+\begin{document}
+
+\title{Gesture Recognition via 3D Accelerometer}
+
+
+%
+% You need the command \numberofauthors to handle the 'placement
+% and alignment' of the authors beneath the title.
+%
+% For aesthetic reasons, we recommend 'three authors at a time'
+% i.e. three 'name/affiliation blocks' be placed beneath the title.
+%
+% NOTE: You are NOT restricted in how many 'rows' of
+% "name/affiliations" may appear. We just ask that you restrict
+% the number of 'columns' to three.
+%
+% Because of the available 'opening page real-estate'
+% we ask you to refrain from putting more than six authors
+% (two rows with three columns) beneath the article title.
+% More than six makes the first-page appear very cluttered indeed.
+%
+% Use the \alignauthor commands to handle the names
+% and affiliations for an 'aesthetic maximum' of six authors.
+% Add names, affiliations, addresses for
+% the seventh etc. author(s) as the argument for the
+% \additionalauthors command.
+% These 'additional authors' will be output/set for you
+% without further effort on your part as the last section in
+% the body of your article BEFORE References or any Appendices.
+
+\numberofauthors{3} %  in this sample file, there are a *total*
+% of EIGHT authors. SIX appear on the 'first-page' (for formatting
+% reasons) and the remaining two appear in the \additionalauthors section.
+%
+\author{
+% You can go ahead and credit any number of authors here,
+% e.g. one 'row of three' or two rows (consisting of one row of three
+% and a second row of one, two or three).
+%
+% The command \alignauthor (no curly braces needed) should
+% precede each author name, affiliation/snail-mail address and
+% e-mail address. Additionally, tag each line of
+% affiliation/address with \affaddr, and tag the
+% e-mail address with \email.
+%
+% 1st. author
+\alignauthor
+Huihuang Zheng\\
+       \affaddr{University of Texas at Austin}\\
+       \email{huihuang@utexas.com}
+% 2nd. author
+\alignauthor
+Yiming Pang\\
+       \affaddr{University of Texas at Austin}\\
+       \email{TODO}
+}
+
+
+\maketitle
+\begin{abstract}
+This report shows our implementation, application and experiment of wireless.
+\end{abstract}
+
+
+\category{Wireless Network}{Research Project}[report]
+
+\terms{Algorithm, Application}
+
+\keywords{Gesture, Accelerometer, Dynamic Time Warping(DTW)} % NOT required for Proceedings
+
+\section{Introduction}
+Gesture-based interactions are now widely used in mobile phone and laptop, which requires gesture pattern recognition. There are several methods to recognize gestures, for example, XBOX can recognize by vision approaching. Some researchers used wearable sensors like "glove" to detect motion of hands. But those works cost computing resource, power and hardware a lot. We focused on light-weight gesture recognition system: just use simple 3D accelerometer, which is common in your mobile phone. 
+
+In this report, we showed our work of course project. Our project is mainly based on previous work uWave: A state of art gesture recognition method. It just uses templates of gesture. When it tries to detect gesture, it records gesture and uses Dynamic time warping(DTW) to compute time series Euclidean distance between gesture and templates. Then it outputs the template which matches best as recognition result.
+So the advantage of uWave 
+
+Our report is organized as following: section 2 discussed the work of uWave. We will show some shortcomings and what we can improve in the section. section 3 will show project and experiments we have done. Section 4 shows our future plan, what we will add in our research project.
+
+\section{uWave}
+
+
+\section{Project and Experiments We Have Done}
+
+\section{Future Plan}
+\subsection{More gestures, More precise}
+\subsection{SVM based method}
+\subsection{We can delete and update gesture template}
+\subsection{Gesture control application}
+
+\section{Result}
+We
+\section{Conclusion}
+In this
+
+
+%
+% The following two commands are all you need in the
+% initial runs of your .tex file to
+% produce the bibliography for the citations in your paper.
+\nocite{*}
+\bibliographystyle{abbrv}
+\bibliography{sigproc}  % sigproc.bib is the name of the Bibliography in this case
+
+% That's all folks!
+\end{document}
