@@ -7,5 +7,5 @@
     <string name="view_result">result = </string>
     <string name="button_end">end</string>
     <string name="button_record">record</string>
-    <string name="button_detect">detect</string>
+    <string name="button_recognize">recognize</string>
 </resources>

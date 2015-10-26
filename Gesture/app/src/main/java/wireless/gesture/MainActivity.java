@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected boolean recording = false;
     protected boolean detecting = false;
     Button recordButton;
-    Button detectButton;
+    Button recognizeButton;
     Button endButton;
 
     final double alpha = 0.8;
@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        detectButton = (Button) findViewById(R.id.detectButton);
-        detectButton.setOnClickListener(new View.OnClickListener(){
+        recognizeButton = (Button) findViewById(R.id.recognizeButton);
+        recognizeButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 if(!recording && !detecting) {
                     detecting = true;
